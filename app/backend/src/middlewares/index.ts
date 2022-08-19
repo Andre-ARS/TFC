@@ -1,3 +1,7 @@
 import errorMiddleware from './errorMiddleware';
+import tokenMiddleware from './tokenMiddleware';
 
-export default errorMiddleware;
+export {
+  errorMiddleware,
+  tokenMiddleware,
+};
