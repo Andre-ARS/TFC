@@ -1,5 +1,6 @@
 import ITokenResponse from './ITokenResponse';
-import { ILoginService } from './IService';
+import ITeam from './ITeam';
+import { ILoginService, ITeamsService } from './IService';
 import { IUser, IUserSimple } from './IUser';
 
 export {
@@ -7,4 +8,6 @@ export {
   IUser,
   IUserSimple,
   ILoginService,
+  ITeam,
+  ITeamsService,
 };
