@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { tokenMiddleware } from '../middlewares';
-import LoginController from '../controllers';
+import { LoginController } from '../controllers';
 import { LoginService } from '../services';
 
 const loginRouter = express.Router();
