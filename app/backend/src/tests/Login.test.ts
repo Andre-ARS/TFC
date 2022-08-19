@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-const loginUser = {
+const validLoginUser = {
   email: 'any-email',
   password: 'any-password',
 };
@@ -31,15 +31,27 @@ describe('Users model', () => {
     })
   
     it('Returns status 200 when succeeds', async () => {
-      const res = await chai.request(app)
-        .post('/login').send(loginUser);
+      const { status, body } = await chai.request(app)
+        .post('/login').send(validLoginUser);
   
-      expect(res.status).to.equal(200);
-      expect(res.body).to.have.property('token');
+      expect(status).to.equal(200);
+      expect(body).to.have.property('token');
     });
   
-    // it('Seu sub-teste', () => {
-    //   expect(false).to.be.eq(true);
-    // });
+    it("Returns status 400 if there's no email", async () => {
+      const { status, body } = await chai.request(app)
+        .post('/login').send(validLoginUser.password);
+      
+      expect(status).to.equal(400);
+      expect(body.message).to.be.equal('All fields must be filled');
+    });
+
+    it("Returns status 400 if there's no password", async () => {
+      const { status, body } = await chai.request(app)
+        .post('/login').send(validLoginUser.email);
+      
+      expect(status).to.equal(400);
+      expect(body.message).to.be.equal('All fields must be filled');
+    });
   })
 });
