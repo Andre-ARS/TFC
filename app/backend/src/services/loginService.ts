@@ -5,6 +5,7 @@ import { ITokenResponse } from '../interfaces';
 import PasswordService from './passwordService';
 import JwtService from './jwtService';
 import { ILoginService } from '../interfaces/IService';
+import validateLogin from './validations';
 
 export default class LoginService implements ILoginService {
   private model;
@@ -16,6 +17,7 @@ export default class LoginService implements ILoginService {
   async login({ email, password }: any): Promise<ITokenResponse | void> {
     const { model } = this;
 
+    validateLogin({ email, password });
     const user = await model.findOne({ where: { email } });
 
     if (!user) throw new CustomError(StatusCodes.UNAUTHORIZED, 'Incorrect email or password');
