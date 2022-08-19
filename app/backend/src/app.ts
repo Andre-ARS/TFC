@@ -2,7 +2,7 @@ import 'express-async-errors';
 import * as express from 'express';
 import * as cors from 'cors';
 import router from './routers';
-import errorMiddleware from './middlewares';
+import { errorMiddleware } from './middlewares';
 
 class App {
   public app: express.Express;
