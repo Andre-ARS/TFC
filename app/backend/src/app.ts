@@ -1,4 +1,8 @@
+import 'express-async-errors';
 import * as express from 'express';
+import * as cors from 'cors';
+import router from './routers';
+import errorMiddleware from './middlewares';
 
 class App {
   public app: express.Express;
@@ -22,6 +26,9 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+    this.app.use(router);
+    this.app.use(errorMiddleware);
+    this.app.use(cors());
   }
 
   public start(PORT: string | number):void {
