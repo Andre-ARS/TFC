@@ -15,4 +15,12 @@ export default class TeamsService implements ITeamsService {
 
     return teams;
   }
+
+  async getById(id: number): Promise<ITeam> {
+    const { model } = this;
+
+    const team = await model.findByPk(id) as ITeam;
+
+    return team;
+  }
 }
