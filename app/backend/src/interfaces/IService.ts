@@ -1,3 +1,4 @@
+import { IMatcheResponse } from './IMatche';
 import ITeam from './ITeam';
 import ITokenResponse from './ITokenResponse';
 
@@ -8,4 +9,8 @@ export interface ILoginService {
 export interface ITeamsService {
   getAll(): Promise<ITeam[]>;
   getById(id: number): Promise<ITeam>;
+}
+
+export interface IMatchesService {
+  getAll(): Promise<IMatcheResponse[]>;
 }
