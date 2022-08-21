@@ -1,4 +1,4 @@
-import { IMatcheResponse } from './IMatche';
+import IMatche, { IMatcheResponse } from './IMatche';
 import ITeam from './ITeam';
 import ITokenResponse from './ITokenResponse';
 
@@ -14,4 +14,5 @@ export interface ITeamsService {
 export interface IMatchesService {
   getAll(): Promise<IMatcheResponse[]>;
   filter(inProgress: boolean): Promise<IMatcheResponse[]>;
+  create(data: object): Promise<IMatche>;
 }

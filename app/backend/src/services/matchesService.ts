@@ -1,7 +1,8 @@
 import { IMatchesService } from '../interfaces/IService';
 import Matches from '../database/models/Matches';
-import { IMatcheResponse } from '../interfaces';
+import { IMatche, IMatcheResponse } from '../interfaces';
 import Teams from '../database/models/Teams';
+import { validateCreateMatche } from './validations';
 
 export default class MatchesService implements IMatchesService {
   private model;
@@ -35,5 +36,15 @@ export default class MatchesService implements IMatchesService {
     }) as IMatcheResponse[];
 
     return matches;
+  }
+
+  async create(data: object): Promise<IMatche> {
+    const { model } = this;
+
+    validateCreateMatche(data);
+
+    const newMatche = await model.create({ ...data, inProgress: true }) as IMatche;
+
+    return newMatche;
   }
 }

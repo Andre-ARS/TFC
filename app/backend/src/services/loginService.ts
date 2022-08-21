@@ -5,7 +5,7 @@ import { ITokenResponse } from '../interfaces';
 import PasswordService from './passwordService';
 import JwtService from './jwtService';
 import { ILoginService } from '../interfaces/IService';
-import validateLogin from './validations';
+import { validateLogin } from './validations';
 
 export default class LoginService implements ILoginService {
   private model;
