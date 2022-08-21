@@ -21,4 +21,13 @@ export default class MatchesController {
 
     return res.status(StatusCodes.OK).json(matches);
   }
+
+  async create(req: Request, res: Response) {
+    const { service } = this;
+    const matcheData = req.body;
+
+    const newMatche = await service.create(matcheData);
+
+    res.status(StatusCodes.CREATED).json(newMatche);
+  }
 }
