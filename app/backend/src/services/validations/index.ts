@@ -1,3 +1,7 @@
 import validateLogin from './loginValidation';
+import validateCreateMatche from './matcheValidation';
 
-export default validateLogin;
+export {
+  validateLogin,
+  validateCreateMatche,
+};
