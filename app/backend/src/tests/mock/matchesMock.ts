@@ -1,4 +1,4 @@
-import { IMatcheResponse } from '../../interfaces/IMatche';
+import IMatche, { IMatcheResponse } from '../../interfaces/IMatche';
 const matchesResponseMock: IMatcheResponse[] = [
 	{
 		id: 1,
@@ -674,4 +674,16 @@ const matchesResponseMock: IMatcheResponse[] = [
 	}
 ]
 
-export default matchesResponseMock;
+const matchesCreateMock: IMatche = {
+  id: 1,
+  homeTeam: 16,
+  homeTeamGoals: 2,
+  awayTeam: 8,
+  awayTeamGoals: 2,
+  inProgress: true,
+}
+
+export { 
+	matchesResponseMock,
+	matchesCreateMock,
+}
