@@ -13,4 +13,5 @@ export interface ITeamsService {
 
 export interface IMatchesService {
   getAll(): Promise<IMatcheResponse[]>;
+  filter(inProgress: boolean): Promise<IMatcheResponse[]>;
 }

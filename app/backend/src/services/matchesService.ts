@@ -22,4 +22,18 @@ export default class MatchesService implements IMatchesService {
 
     return matches;
   }
+
+  async filter(progress: boolean): Promise<IMatcheResponse[]> {
+    const { model } = this;
+
+    const matches = await model.findAll({
+      where: { inProgress: progress },
+      include: [
+        { model: Teams, as: 'teamHome', attributes: ['teamName'] },
+        { model: Teams, as: 'teamAway', attributes: ['teamName'] },
+      ],
+    }) as IMatcheResponse[];
+
+    return matches;
+  }
 }
