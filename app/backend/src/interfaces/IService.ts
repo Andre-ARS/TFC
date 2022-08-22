@@ -16,4 +16,5 @@ export interface IMatchesService {
   filter(inProgress: boolean): Promise<IMatcheResponse[]>;
   create(data: object): Promise<IMatche>;
   finish(id: number): Promise<void>;
+  changeScore(data: object, id: number): Promise<void>;
 }

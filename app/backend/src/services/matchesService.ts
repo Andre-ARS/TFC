@@ -62,4 +62,12 @@ export default class MatchesService implements IMatchesService {
       where: { id },
     });
   }
+
+  async changeScore(data: object, id: number): Promise<void> {
+    const { model } = this;
+
+    await model.update(data, {
+      where: { id },
+    });
+  }
 }
