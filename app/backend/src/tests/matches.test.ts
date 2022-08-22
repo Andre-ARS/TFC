@@ -83,5 +83,22 @@ describe('Matches model', () => {
       expect(status).to.equal(200);
       expect(body).to.be.deep.equal({ message: 'Finished' });
     });
+  
+    
+    it('Allows to edit a matche\'s scoreBoard', async () => {
+      sinon.stub(JwtService, "validateToken").returns({ data: userResponseMock } as any);
+      sinon.stub(Matches, "update");
+      
+      const { status, body } = await chai.request(app)
+        .patch('/matches/1')
+        .set('Authorization', 'any-token')
+        .send({
+          homeTeamGoals: 3,
+          awayTeamGoals: 1
+        });
+
+      expect(status).to.equal(200);
+      expect(body).to.be.deep.equal({ message: 'Score changed!' });
+    });
   })
 });
