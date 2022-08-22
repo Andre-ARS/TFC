@@ -73,10 +73,12 @@ describe('Matches model', () => {
     });
     
     it('Allows to finish a matche', async () => {
+      sinon.stub(JwtService, "validateToken").returns({ data: userResponseMock } as any);
       sinon.stub(Matches, "update");
       
       const { status, body } = await chai.request(app)
-        .patch('/matches/1/finish');
+        .patch('/matches/1/finish')
+        .set('Authorization', 'any-token');
   
       expect(status).to.equal(200);
       expect(body).to.be.deep.equal({ message: 'Finished' });
