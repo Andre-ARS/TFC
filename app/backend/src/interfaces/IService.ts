@@ -15,4 +15,5 @@ export interface IMatchesService {
   getAll(): Promise<IMatcheResponse[]>;
   filter(inProgress: boolean): Promise<IMatcheResponse[]>;
   create(data: object): Promise<IMatche>;
+  finish(id: number): Promise<void>;
 }
