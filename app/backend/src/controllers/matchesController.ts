@@ -40,4 +40,14 @@ export default class MatchesController {
     const message = 'Finished';
     res.status(StatusCodes.OK).json({ message });
   }
+
+  async changeScore(req: Request, res: Response) {
+    const { service } = this;
+    const { params: { id }, body } = req;
+
+    service.changeScore(body, Number(id));
+
+    const message = 'Score changed!';
+    res.status(StatusCodes.OK).json({ message });
+  }
 }
