@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import { IMatchesService } from '../interfaces/IService';
 import Matches from '../database/models/Matches';
 import { IMatche, IMatcheResponse } from '../interfaces';
@@ -38,10 +39,16 @@ export default class MatchesService implements IMatchesService {
     return matches;
   }
 
-  async create(data: object): Promise<IMatche> {
+  async create(data: any): Promise<IMatche> {
     const { model } = this;
 
-    validateCreateMatche(data);
+    const { count } = await Teams.findAndCountAll({
+      where: {
+        id: { [Op.in]: [data.homeTeam, data.awayTeam] },
+      },
+    });
+
+    validateCreateMatche(data, count);
 
     const newMatche = await model.create({ ...data, inProgress: true }) as IMatche;
 
