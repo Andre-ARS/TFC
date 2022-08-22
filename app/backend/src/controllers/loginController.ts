@@ -13,8 +13,8 @@ export default class LoginController {
     res.status(StatusCodes.OK).json(token);
   }
 
-  static async loginValidate(req: any, res: Response, _next: NextFunction) {
-    const { role } = req.user;
+  static async loginValidate(req: Request, res: Response, _next: NextFunction) {
+    const { role } = req.body.user;
 
     res.status(StatusCodes.OK).json({ role });
   }

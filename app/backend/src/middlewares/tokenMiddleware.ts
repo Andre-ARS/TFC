@@ -1,13 +1,13 @@
-import { RequestHandler } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
 import JwtService from '../services/jwtService';
 
-const tokenMiddleware: RequestHandler = (req: any, _res, next) => {
-  const { authorization } = req.headers;
+const tokenMiddleware = (req: Request, _res: Response, next: NextFunction) => {
+  const token = req.headers.authorization as string;
 
-  const { data } = JwtService.validateToken(authorization) as JwtPayload;
+  const { data } = JwtService.validateToken(token) as JwtPayload;
 
-  req.user = data;
+  req.body.user = data;
 
   next();
 };
