@@ -1,5 +1,7 @@
+import { userResponseMock } from './mock/UsersMock';
 import * as sinon from 'sinon';
 import * as chai from 'chai';
+import * as Jwt from 'jsonwebtoken';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
@@ -7,6 +9,7 @@ import { app } from '../app';
 import Matches from '../database/models/Matches'
 
 import { matchesResponseMock, matchesCreateMock } from './mock/matchesMock';
+import JwtService from '../services/jwtService';
 
 chai.use(chaiHttp);
 
@@ -19,7 +22,7 @@ const createMatcheBody = {
 
 const { expect } = chai;
 describe('Matches model', () => {
-  describe('Tests the /matches endpoint', async () => { 
+  describe('Tests the /matches route', async () => { 
     afterEach(()=>{
       sinon.restore();
     })
@@ -57,13 +60,26 @@ describe('Matches model', () => {
     });
     
     it('Allows to create a new matche', async () => {
+      sinon.stub(JwtService, "validateToken").returns({ data: userResponseMock } as any);
       sinon.stub(Matches, "create").resolves(matchesCreateMock as Matches);
       
       const { status, body } = await chai.request(app)
-        .post('/matches').send(createMatcheBody);
+        .post('/matches')
+        .set('Authorization', 'any-token')
+        .send(createMatcheBody);
   
       expect(status).to.equal(201);
       expect(body).to.be.deep.equal(matchesCreateMock);
+    });
+    
+    it('Allows to finish a matche', async () => {
+      sinon.stub(Matches, "update");
+      
+      const { status, body } = await chai.request(app)
+        .patch('/matches/1/finish');
+  
+      expect(status).to.equal(200);
+      expect(body).to.be.deep.equal({ message: 'Finished' });
     });
   })
 });
