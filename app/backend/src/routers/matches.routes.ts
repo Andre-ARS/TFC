@@ -15,5 +15,10 @@ matchesRouter.patch(
   tokenMiddleware,
   (req, res) => matchesController.finish(req, res),
 );
+matchesRouter.patch(
+  '/:id',
+  tokenMiddleware,
+  (req, res) => matchesController.changeScore(req, res),
+);
 
 export default matchesRouter;
