@@ -1,8 +1,9 @@
 import ITokenResponse from './ITokenResponse';
 import ITeam from './ITeam';
-import { ILoginService, ITeamsService, IMatchesService } from './IService';
+import { ILoginService, ITeamsService, IMatchesService, ILeaderboardService } from './IService';
 import { IUser, IUserSimple } from './IUser';
 import IMatche, { IMatcheResponse } from './IMatche';
+import IBoardTeam from './ILeaderboard';
 
 export {
   ITokenResponse,
@@ -14,4 +15,6 @@ export {
   IMatche,
   IMatcheResponse,
   IMatchesService,
+  IBoardTeam,
+  ILeaderboardService,
 };

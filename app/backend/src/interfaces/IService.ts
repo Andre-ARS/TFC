@@ -1,3 +1,4 @@
+import IBoardTeam from './ILeaderboard';
 import IMatche, { IMatcheResponse } from './IMatche';
 import ITeam from './ITeam';
 import ITokenResponse from './ITokenResponse';
@@ -17,4 +18,8 @@ export interface IMatchesService {
   create(data: object): Promise<IMatche>;
   finish(id: number): Promise<void>;
   changeScore(data: object, id: number): Promise<void>;
+}
+
+export interface ILeaderboardService {
+  getHomeBoard(): Promise<IBoardTeam[]>
 }
