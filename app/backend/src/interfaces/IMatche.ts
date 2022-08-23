@@ -7,6 +7,18 @@ export default interface IMatche {
   inProgress: number | boolean;
 }
 
+export interface IMatcheHomeResponse extends IMatche {
+  teamHome: {
+    teamName: string
+  }
+}
+
+export interface IMatcheAwayResponse extends IMatche {
+  teamAway: {
+    teamName: string
+  }
+}
+
 export interface IMatcheResponse extends IMatche {
   teamHome: {
     teamName: string
