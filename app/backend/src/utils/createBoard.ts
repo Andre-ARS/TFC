@@ -62,7 +62,7 @@ const removeDuplicates = (board: IBoardTeam[]) => {
   return unique as IBoardTeam[];
 };
 
-const generateBoard = (matches: IMatcheResponse[]): IBoardTeam[] => {
+const formattBoard = (matches: IMatcheResponse[]): IBoardTeam[] => {
   const board = matches.map((matche) => {
     const id = matche.teamHome ? matche.homeTeam : matche.awayTeam;
     const team = matche.teamHome || matche.teamAway;
@@ -79,9 +79,49 @@ const generateBoard = (matches: IMatcheResponse[]): IBoardTeam[] => {
 
   const uniqueBoard = removeDuplicates(board);
 
+  return uniqueBoard;
+};
+
+const generateBoard = (matches: IMatcheResponse[]): IBoardTeam[] => {
+  const uniqueBoard = formattBoard(matches);
+
   const leaderboard = uniqueBoard.sort(sortLeaderboard);
 
   return leaderboard as IBoardTeam[];
 };
 
+const formattLeaderboard = (homeTeams: IBoardTeam[], awayTeams: IBoardTeam[]) => {
+  const board: IBoardTeam[] = homeTeams.map((team, i) => {
+    const points = team.totalPoints + awayTeams[i].totalPoints;
+    const games = team.totalGames + awayTeams[i].totalGames;
+
+    return {
+      name: team.name,
+      totalPoints: points,
+      totalGames: games,
+      totalVictories: team.totalVictories + awayTeams[i].totalVictories,
+      totalDraws: team.totalDraws + awayTeams[i].totalDraws,
+      totalLosses: team.totalLosses + awayTeams[i].totalLosses,
+      goalsFavor: team.goalsFavor + awayTeams[i].goalsFavor,
+      goalsOwn: team.goalsOwn + awayTeams[i].goalsOwn,
+      goalsBalance: team.goalsBalance + awayTeams[i].goalsBalance,
+      efficiency: ((points / (games * 3)) * 100).toFixed(2),
+    };
+  });
+
+  return board;
+};
+
+const generateLeaderboard = (homeMatches: IMatcheResponse[], awayMatches: IMatcheResponse[]) => {
+  const homeTeams = formattBoard(homeMatches).sort((a, b) => a.name.localeCompare(b.name));
+  const awayTeams = formattBoard(awayMatches).sort((a, b) => a.name.localeCompare(b.name));
+
+  const board = formattLeaderboard(homeTeams, awayTeams);
+
+  const sortedBoard = board.sort(sortLeaderboard);
+
+  return sortedBoard;
+};
+
+export { generateLeaderboard };
 export default generateBoard;

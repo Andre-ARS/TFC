@@ -1,3 +1,4 @@
-import getBoard from './createBoard';
+import getBoard, { generateLeaderboard } from './createBoard';
 
+export { generateLeaderboard };
 export default getBoard;
