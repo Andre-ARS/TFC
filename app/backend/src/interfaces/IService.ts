@@ -22,4 +22,5 @@ export interface IMatchesService {
 
 export interface ILeaderboardService {
   getHomeBoard(): Promise<IBoardTeam[]>
+  getAwayBoard(): Promise<IBoardTeam[]>
 }

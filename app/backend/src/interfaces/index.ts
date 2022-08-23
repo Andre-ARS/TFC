@@ -2,7 +2,7 @@ import ITokenResponse from './ITokenResponse';
 import ITeam from './ITeam';
 import { ILoginService, ITeamsService, IMatchesService, ILeaderboardService } from './IService';
 import { IUser, IUserSimple } from './IUser';
-import IMatche, { IMatcheResponse } from './IMatche';
+import IMatche, { IMatcheResponse, IMatcheHomeResponse, IMatcheAwayResponse } from './IMatche';
 import IBoardTeam from './ILeaderboard';
 
 export {
@@ -17,4 +17,6 @@ export {
   IMatchesService,
   IBoardTeam,
   ILeaderboardService,
+  IMatcheHomeResponse,
+  IMatcheAwayResponse,
 };
