@@ -1,3 +1,3 @@
-import HomeBoard from './getHomeTeamInfo';
+import getBoard from './createBoard';
 
-export default HomeBoard;
+export default getBoard;

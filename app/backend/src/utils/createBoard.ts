@@ -1,18 +1,10 @@
 import { IBoardTeam } from '../interfaces';
 import { IMatcheResponse } from '../interfaces/IMatche';
+import { awayGoals, awayNumbers, homeGoals, homeNumbers } from './getTeamInfo';
 
 const getTeamNumbers = (matches: IMatcheResponse[]): object => {
-  let wins = 0;
-  let draws = 0;
-  let losses = 0;
   const games = matches.length;
-
-  matches.forEach(({ homeTeamGoals, awayTeamGoals }) => {
-    if (homeTeamGoals > awayTeamGoals) wins += 1;
-    if (homeTeamGoals < awayTeamGoals) losses += 1;
-    if (homeTeamGoals === awayTeamGoals) draws += 1;
-  });
-
+  const [wins, losses, draws] = matches[0].teamHome ? homeNumbers(matches) : awayNumbers(matches);
   const points = (wins * 3 + draws);
 
   return {
@@ -26,13 +18,7 @@ const getTeamNumbers = (matches: IMatcheResponse[]): object => {
 };
 
 const getGoals = (matches: IMatcheResponse[]): object => {
-  let favor = 0;
-  let own = 0;
-
-  matches.forEach(({ homeTeamGoals, awayTeamGoals }) => {
-    favor += homeTeamGoals;
-    own += awayTeamGoals;
-  });
+  const [favor, own] = matches[0].teamHome ? homeGoals(matches) : awayGoals(matches);
 
   return {
     goalsFavor: favor,
@@ -78,11 +64,14 @@ const removeDuplicates = (board: IBoardTeam[]) => {
 
 const generateBoard = (matches: IMatcheResponse[]): IBoardTeam[] => {
   const board = matches.map((matche) => {
-    const { teamHome: { teamName }, homeTeam } = matche;
-    const teamMatches = matches.filter(({ homeTeam: teamId }) => teamId === homeTeam);
+    const id = matche.teamHome ? matche.homeTeam : matche.awayTeam;
+    const team = matche.teamHome || matche.teamAway;
+    const teamMatches = matche.teamHome
+      ? matches.filter(({ homeTeam: teamId }) => teamId === id)
+      : matches.filter(({ awayTeam: teamId }) => teamId === id);
 
     return {
-      name: teamName,
+      name: team.teamName,
       ...getTeamNumbers(teamMatches),
       ...getGoals(teamMatches),
     };
