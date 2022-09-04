@@ -4,7 +4,6 @@
   "description": "Ao iniciar este projeto, você concorda com as diretrizes do Código de Ética e Conduta e do Manual da Pessoa Estudante da Trybe.",
   "main": "index.js",
   "scripts": {
-    "swagger-autogen": "node swagger.js",
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "postinstall": "npm run install:apps",
     "install:apps": "./apps_install.sh",
