@@ -1,8 +1,10 @@
 import 'express-async-errors';
 import * as express from 'express';
 import * as cors from 'cors';
+import * as swaggerUI from 'swagger-ui-express';
 import router from './routers';
 import { errorMiddleware } from './middlewares';
+import swaggerFile from './swaggerFile';
 
 class App {
   public app: express.Express;
@@ -26,13 +28,15 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
+    this.app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerFile));
     this.app.use(router);
     this.app.use(errorMiddleware);
     this.app.use(cors());
   }
 
   public start(PORT: string | number):void {
-    this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+    this.app.listen(PORT, () => console.log(`Running on port ${PORT}
+Acesse a documentação http://localhost:3001/docs`));
   }
 }
 

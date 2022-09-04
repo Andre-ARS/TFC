@@ -50,4 +50,6 @@ npm run db:reset
 
 Url base da api rodando no Heroku [https://tfc-ars-api.herokuapp.com/](https://tfc-ars-api.herokuapp.com/)
 
-Visite a documentação no swagger [aqui](https://app.swaggerhub.com/apis/ANDRE360ARS/blogs-api/1.0.0#/)
+Teste a aplicação completa com deploy no Vercel: [TFC](http://tfc-ars.vercel.app)
+
+Visite a documentação no swagger [aqui](https://app.swaggerhub.com/apis/ANDRE360ARS/trybe-futebol_clube_tfc/1.0.0)
